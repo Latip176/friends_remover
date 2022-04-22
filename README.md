@@ -13,12 +13,10 @@ cd friends_remover
 python main.py
 ```
 # support platforms
-<ul>
-   <li>[x] Windows</li>
-   <li>[x] Linux</li>
-   <li>[x] Android~**Termux**</li>
-   <li>[x] MacOs</li>
-   <li>[x] **any Os has python(3.x) with required modules**</li>
-</ul>
+[x] Windows
+[x] Linux
+[x] Android~**Termux**
+[x] MacOs
+[x] **any Os has python(3.x) with required modules**
 # sample results
 <img src="results.jpg" />
