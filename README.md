@@ -18,5 +18,5 @@ python main.py
 <li>[x] Android~**Termux**</li>
 <li>[x] MacOs</li>
 <li>[x] **any Os has python(3.x) with required modules**</li>
-# sample results
+<h1 align="center">sample result</h1>
 <img src="results.jpg" />
