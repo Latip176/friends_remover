@@ -8,21 +8,22 @@ cookies = {"cookie":None}
 def convert(cookie):
 	cookies["cookie"] = cookie
 	res = requests.Session().get('https://business.facebook.com/business_locations', headers = {
-        'user-agent': 'Mozilla/5.0 (Linux; Android 8.1.0; MI 8 Build/OPM1.171019.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.86 Mobile Safari/537.36',
-        'referer': 'https://www.facebook.com/',
-        'host' : 'business.facebook.com',
-        'origin' : 'https://business.facebook.com',
-        'upgrade-insecure-requests' : '1',
-        'accept-language' : 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
-        'cache-control' : 'max-age=0',
-        'accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-        'content-type' : 'text/html; charset=utf-8'
-    }, cookies = cookies)
+   	     'user-agent': 'Mozilla/5.0 (Linux; Android 8.1.0; MI 8 Build/OPM1.171019.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.86 Mobile Safari/537.36',
+    	    'referer': 'https://www.facebook.com/',
+   	     'host' : 'business.facebook.com',
+    	    'origin' : 'https://business.facebook.com',
+   	     'upgrade-insecure-requests' : '1',
+    	    'accept-language' : 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
+        	'cache-control' : 'max-age=0',
+    	    'accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+    	    'content-type' : 'text/html; charset=utf-8'
+	    }, cookies = cookies)
 	try:
 		token = re.search('(EAAG\w+)',res.text).group(1)
 	except:
-		exit(" >< Maybe, your cookies invalid ><")
-	return token
+		token = "cookies invalid"
+	finally:
+		return token
 
 class Main:
 	
@@ -47,8 +48,8 @@ class Get(Main):
 				if str(self.remove(url=form.get("action"),data=data))!="200":
 					exit(" >< Invalid Remove ><")
 				else:
-					if count % 120 == 0:
-						print(" >< To avoid the account being locked, every 120 id will sleep time for 5 seconds ><")
+					if count % 50 == 0:
+						print(" >< To avoid the account being locked, every 50 id will sleep time for 5 seconds ><")
 						time.sleep(5)
 					else:
 						print(j,f"\t _/\_{count}")
@@ -56,9 +57,11 @@ class Get(Main):
 
 if __name__=="__main__":
 	__import__("os").system("clear")
-	print(" ! Login first, input your cookie facebook account")
+	print("\t ! Login first, input your cookie facebook account")
 	coki = input(" > Cookie: ")
 	token = convert(coki)
+	if token=="cookies invalid":
+		exit(" >< Maybe, your cookies invalid ><")
 	__info = requests.get("https://graph.facebook.com/me?fields=name,id&access_token={}".format(token), cookies={"cookie":coki}).json()
 	_data = requests.get(f"https://graph.facebook.com/{__info['id']}?fields=friends.fields(id,name)&access_token={token}", cookies={"cookie":coki}).json()
 	id, name = [],[]
@@ -70,7 +73,7 @@ if __name__=="__main__":
 			__info["name"], __info["id"], len(id)
 		)
 	)
-	count = int(input(" > how much will be deleted? "))
+	count = int(input(f" > how much will be deleted? (1-{len(id)}) "))
 	print(
 		"\n\t\t+ program starts, (CTRL + C) to stoped +\n"
 	)
